@@ -2,7 +2,7 @@
 import requests # get the webpage's html source code
 import selectorlib # retrieve particular information from that html source code
 import smtplib, ssl
-import os
+import time
  
 URL = "http://programmer100.pythonanywhere.com/tours/"
 HEADERS = {
@@ -50,12 +50,15 @@ def read():
  
  
 if __name__ == "__main__":
-    scraped = scrape(URL)
-    extracted = extract(scraped)
-    print(extracted)
+    while True: # to execute everything in this loop every two seconds
+        scraped = scrape(URL)
+        extracted = extract(scraped)
+        print(extracted)
 
-    content = read()
-    if extracted != "No upcoming tours":
-        if extracted not in content:
-            store(extracted)
-            send_email(message="Hey, new event was found!")
+        content = read()
+        if extracted != "No upcoming tours":
+            if extracted not in content:
+                store(extracted)
+                send_email(message="Hey, new event was found!")
+        time.sleep(2) # sets time delay for two seconds
+                     # always checks for new events/tours every two seconds
