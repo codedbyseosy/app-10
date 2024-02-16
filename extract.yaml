@@ -1,0 +1,2 @@
+tours: # 'tours' is a random name given but it can be anything but it must be the same name as **
+  css: '#displaytimer' # this is the id of what we are trying to extract

@@ -11,5 +11,13 @@ def scrape(url):
     source = response.text
     return source
 
+def extract (source):
+    extractor = selectorlib.Extractor.from_yaml_file("extract.yaml") 
+    value = extractor. extract (source)['tours'] # this ** where we return a dict. The dict will return a key called 'tours
+                                                # the value of the key 'tours' is '#displaytimer' which is the id of the header tag we want to extract
+    return value
+
 if __name__ == "__main__":
-    print(scrape(URL))
+    scraped = scrape (URL)
+    extracted = extract(scraped)
+    print(extracted) 
