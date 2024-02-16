@@ -17,7 +17,25 @@ def extract (source):
                                                 # the value of the key 'tours' is '#displaytimer' which is the id of the header tag we want to extract
     return value
 
+def send_email():
+    print("Email was sent!")
+
+def store(extracted):
+    with open('data.txt', 'a') as file: # 'a' for append
+        file.write(extracted + "\n")
+
+def read(extracted):
+    with open('data.txt', 'r') as file:
+        return file.read()
+
+
 if __name__ == "__main__":
     scraped = scrape (URL)
     extracted = extract(scraped)
     print(extracted) 
+    content = read(extracted)
+    if extracted != "No upcoming tours":
+        if extracted not in content:
+            store(extracted)
+            send_email()
+
